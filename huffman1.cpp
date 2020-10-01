@@ -1,13 +1,24 @@
-#include<iostream>
-#include<string>
-#include<vector>
 #include<bits/stdc++.h>
-#include<fstream>
-#include<map>
-#include<unordered_map>
 using namespace std;
 map<char,string>m;
 map<string,char>ma;
+
+class node
+{
+public:
+    int freq;
+    char symbol;
+    string code;
+    node *left,*right;
+    node(int f,char s,node *l=NULL,node *r=NULL)
+    {
+        freq=f;
+        symbol=s;
+        left=l;
+        right=r;
+    }
+};
+
 string readInputFile(ifstream& in)
 {
     stringstream sstr;
@@ -41,21 +52,7 @@ string strToBinary(string s)
     }
     return out;
 }
-class node
-{
-public:
-    int freq;
-    char symbol;
-    string code;
-    node *left,*right;
-    node(int f,char s,node *l=NULL,node *r=NULL)
-    {
-        freq=f;
-        symbol=s;
-        left=l;
-        right=r;
-    }
-};
+
 void getcodes(node * top,string prefix="")
 {
     if(top->left==NULL && top->right==NULL)
@@ -182,17 +179,6 @@ int main()
     inFile.open("input.txt",ios::in);
     string data,temp;
     data=readInputFile(inFile);
-    //inFile>>data;
-    /*
-    while(getline(inFile,temp))
-    {
-        //cout<<"temp= "<<temp<<endl;
-        if(temp.size()==0)
-            getline(inFile,temp);
-        else
-            data+=temp+'\n';
-    }
-    */
     inFile.close();
     //data="bcada";
     int l=data.size();
@@ -267,14 +253,9 @@ int main()
             b*=2;
         }
         char ch=(char)num;
-        //cout<<endl;
-        //cout<<"number="<<ch<<endl;
-                out.write(&ch,sizeof(ch));
-                index=0;
-                f.reset();
-
-    //cout<<"\nnum"<<num;
-
+        out.write(&ch,sizeof(ch));
+        index=0;
+        f.reset();
     }
     cout<<endl;
     string buffer,ans;
